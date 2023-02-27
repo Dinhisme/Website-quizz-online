@@ -1,0 +1,162 @@
+<section>
+    <div style="padding-bottom: 10px;" id="myCarousel" class="carousel slide row" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>>
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="row thumb">
+                    <img style="max-width: 60%;" src="images/thumbDinhismeG1.png" alt="">
+                </div>
+            </div>
+            <div class="item">
+                <div class="row thumb">
+                    <img style="max-width: 60%;" src="images/thumbDinhismeB.png" alt="">
+                </div>
+            </div>
+            <div class="item">
+                <div class="row thumb">
+                    <img style="max-width: 60%;" src="images/thumbDinhismeG3.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div style="background-color: #112033;" class="content" ng-controller="quizzs-ctrl">
+            <legend style="color: rgb(218, 118, 25); font-weight: bold; font-size: x-large;">
+                <p>{{quizz.Fullname}}</p>
+                <p style="text-align: right; margin-right: 20px; color: rgb(255, 255, 255); font-size: x-large;"
+                    ng-hide="quizz.Id == 0"> <span class="glyphicon glyphicon-time" style="font-size: large;"></span>
+                    {{(timeleft-timeleft%60)/60}}:{{timeleft%60}}</p>
+            </legend>
+            <legend class="menu-quizzs">
+                <a href="#!subject">DANH MỤC</a> <span class="glyphicon glyphicon-chevron-right"></span> <a
+                    href="">{{quizz.Name}}</a>
+            </legend>
+            <div ng-show="checkFinish == false">
+                <div class="container-fluid" style="word-wrap: break-word; width: 100%;">
+                    <p class="title-question col-sm-10" style="text-align: left;" ng-hide="quizz.Id == 0">
+                        {{quizz.Text}}
+                    </p>
+                    <p class="title-question col-sm-2" style="text-align: right; color: rgb(218, 118, 25);"
+                        ng-hide="quizz.Id == 0">
+                        {{quizz.QuestionNo+1}} /10
+                    </p>
+                </div>
+                <hr>
+                <div class="content-question">
+                    <div class="row">
+                        <button type="button" class="btn btn-primary btn-lg" ng-click="pushQuizz()"
+                            ng-show="quizz.Id == 0" style="margin-bottom: 10px;">BẮT ĐẦU</button>
+                    </div>
+                    <div ng-show="checkFinish == false">
+                        <fieldset class="cusor" style="color: white;" ng-hide="quizz.Id == 0">
+                            <ul style="text-align: left;" class="list-unstyled" ng-repeat="qz in quizz.Answers">
+                                <li>
+                                    <input class="form-check-input" type="radio" name="inlineOptions" id="{{qz.Id}}"
+                                        value="{{qz.Id}}" ng-click="arrAnswers(qz.Id, quizz.AnswerId)"
+                                        ng-model="tempUserAnswer">
+                                    <label style="word-wrap: break-word; width: auto;" class="form-check-label"
+                                        for="{{qz.Id}}">
+                                        {{qz.Text}}</label>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </div>
+                </div>
+                <hr style="margin: 0 0;">
+                <div class="btn-ctrl-quizzs" ng-hide="quizz.Id == 0">
+                    <button ng-click="yourSubmit()" style="float: left; margin-left: 30px;"
+                        ng-disabled="quizzsDetailUserAnswerText[quizz.QuestionNo] == null"
+                        ng-hide="quizz.QuestionNo != 9">Kết thúc <span class="glyphicon glyphicon-ok"></span></button>
+                    <button ng-click="preQuestion()" ng-hide="quizz.QuestionNo == 0"> <span
+                            class="glyphicon glyphicon-chevron-left"></span> Trước đó</button>
+                    <button ng-click="nextQuestion()" ng-hide="quizz.QuestionNo == 9"
+                        ng-disabled="quizzsDetailUserAnswerText[quizz.QuestionNo] == null">Tiếp theo <span
+                            class="glyphicon glyphicon-chevron-right"></span></button>
+                </div>
+            </div>
+            <!-- hide -->
+            <div ng-hide="checkFinish == false">
+                <div class="container-fluid" style="word-wrap: break-word; width: 100%;">
+                    <p style="text-align: center; color: rgb(218, 118, 25); font-size: x-large; margin: 0 0;">
+                        Điểm của bạn là: {{point}} /10
+                    </p>
+                </div>
+                <button style="text-align: center; margin: 10px 0;" type="button" class="btn btn-primary btn-lg"
+                    data-toggle="collapse" data-target="#detail">Thông tin chi
+                    tiết
+                    <span style="font-size: small;" class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+                <div id="detail" class="collapse">
+                    <hr>
+                    <div class="" ng-repeat="qs in quizzsDetail">
+                        <br>
+                        <p class="title-question"
+                            style=" text-align: left; margin-left: 10px; margin-bottom: 15px; margin-top: 10px; color: rgb(0, 202, 216)">
+                            Câu: <span ng-bind="{{$index + 1}}"></span>
+                            <span class="glyphicon glyphicon-ok" style="color: green;"
+                                ng-show="quizzsDetailUserAnswerText[$index] == quizzsDetailSystemAnswerText[$index]"></span>
+                            <span class="glyphicon glyphicon-remove" style="color: rgb(159, 12, 12);"
+                                ng-hide="quizzsDetailUserAnswerText[$index] == quizzsDetailSystemAnswerText[$index]"></span>
+                        </p>
+                        <div class="" style="margin-left: 3%;">
+                            <p class="title-question"
+                                style=" text-align: left; margin-left: 0px; color: rgb(255, 255, 255);">
+                                {{qs.Text}}
+                            </p>
+                            <div class="content-question" ng-init="nb = $index">
+                                <fieldset class="" style="color: white;">
+                                    <ul style="text-align: left;" class="list-unstyled" ng-repeat="qzd in qs.Answers">
+                                        <li>
+                                            <input class="form-check-input" type="radio"
+                                                ng-checked="quizzsDetailUserAnswerText[nb] == qzd.Text">
+                                            <label style="word-wrap: break-word; width: 90%;" class="form-check-label">
+                                                {{qzd.Text}}
+                                                <span class="glyphicon glyphicon-ok" style="color: rgb(14, 158, 14);"
+                                                    ng-show="quizzsDetailSystemAnswerText[nb] == qzd.Text"></span>
+                                                <span class="glyphicon glyphicon-remove"
+                                                    style="color: rgb(178, 13, 13);"
+                                                    ng-show="quizzsDetailUserAnswerText[nb] != quizzsDetailSystemAnswerText[nb] && quizzsDetailUserAnswerText[nb] == qzd.Text"></span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                            </div>
+                            <!-- <ul style="text-align: left; color: white;" class="list-unstyled">
+                                <li>
+                                    <label style="word-wrap: break-word; width: 80%; color: rgb(218, 118, 25);"
+                                        class="form-check-label"> Đáp án của bạn:
+                                        <input class="form-check-input" type="radio" ng-disabled="true"
+                                            ng-checked="true">
+                                        <label style="color: white;" for="">
+                                            {{quizzsDetailUserAnswerText[$index]}}
+                                            <span class="glyphicon glyphicon-ok" style="color: green;"
+                                                ng-show="quizzsDetailUserAnswerText[$index] == quizzsDetailSystemAnswerText[$index]"></span>
+                                            <span class="glyphicon glyphicon-remove" style="color: rgb(159, 12, 12);"
+                                                ng-hide="quizzsDetailUserAnswerText[$index] == quizzsDetailSystemAnswerText[$index]"></span>
+                                        </label>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label style="word-wrap: break-word; width: 80%; color: rgb(218, 118, 25);"
+                                        class="form-check-label">Đáp án đúng:
+                                        <input class="form-check-input" type="radio" ng-disabled="true"
+                                            ng-checked="true">
+                                        <label style="color: white;" for="">
+                                            {{quizzsDetailSystemAnswerText[$index]}}
+                                            <span class="glyphicon glyphicon-ok"
+                                                style="color: rgb(0, 128, 109);"></span> </label>
+                                    </label>
+                                </li>
+                            </ul> -->
+                        </div>
+                    </div>
+                </div>
+                <hr style="margin: 0 0;">
+            </div>
+        </div>
+    </div>
+</section>

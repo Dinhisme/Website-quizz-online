@@ -1,0 +1,49 @@
+<section>
+    <div class="row">
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="content">
+            <legend
+                style="border-bottom: 1px solid black; text-shadow: 0px 0px 5px rgb(255, 255, 255); color: rgb(216, 45, 102); font-weight: bold; font-size: x-large;">
+                <p>QUIZZ</p>
+            </legend>
+            <div class="Jumbotron">
+                <div class="container-fluid" ng-controller="subject-ctrl">
+                    <div class="row" ng-init="detail = false">
+                        <div class="subject col-sm-3" ng-repeat="sj in subjects">
+                            <div class="subject-child" ng-click="quizzs(sj.Id, sj.Name)" ng-hide="{{$index}} >= 8">
+                                <div class="subject-child-img">
+                                    <img src="logos/{{sj.Logo}}" alt="">
+                                </div>
+                                <div class="subject-child-content">
+                                    <h3>{{sj.Id}}</h3>
+                                    <h3>{{sj.Name}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row collapse" id="detail">
+                        <div class="subject col-sm-3" ng-repeat="sj in subjects">
+                            <div class="subject-child" ng-click="quizzs(sj.Id, sj.Name)" ng-show="{{$index}} >= 8">
+                                <div class="subject-child-img">
+                                    <img src="logos/{{sj.Logo}}" alt="">
+                                </div>
+                                <div class="subject-child-content">
+                                    <h3>{{sj.Id}}</h3>
+                                    <h3>{{sj.Name}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button style="text-align: center; margin: 10px 0;" type="button" class="btn btn-primary btn-lg"
+                        data-toggle="collapse" data-target="#detail">Xem thêm
+                        <span style="font-size: small;" class="glyphicon glyphicon-chevron-down"></span>
+                    </button>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</section>

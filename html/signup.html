@@ -1,0 +1,131 @@
+<section>
+    <div class="container-fluid signup" ng-controller="signup-ctrl">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 form-su">
+                <form name="frmSU">
+                    <div class="form-su-child">
+                        <div class="">
+                            <div class="row container-fluid">
+                                <div class="col-lg-12">
+                                    <img style="margin: 0 5%;" width="90%" src="/images/thumbDinhisme.png" alt="">
+                                </div>
+                            </div>
+                            <div class="row container-fluid">
+                                <div class="ip-su col-lg-6">
+                                    <label for="fn">
+                                        <h4>Fullname</h4>
+                                    </label>
+                                    <input type="text" id="fn" class="form-control" placeholder="Your fullname"
+                                        name="txtNewUserName" ng-model="newUser.FullName" required />
+                                    <h4 ng-show="frmSU.txtNewUserName.$invalid" ng-hide="validate != 1"><span
+                                            style="color: red;" class="glyphicon glyphicon-warning-sign"></span>
+                                        Fullname is empty!!!
+                                    </h4>
+                                </div>
+                                <div class="ip-su col-lg-6">
+                                    <label for="us">
+                                        <h4>Username</h4>
+                                    </label>
+                                    <input type="text" id="us" class="form-control" placeholder="Your username"
+                                        name="txtNewUserFullName" ng-model="newUser.userName" required />
+                                    <h4 ng-show="frmSU.txtNewUserFullName.$invalid" ng-hide="validate != 2"><span
+                                            style="color: red;" class="glyphicon glyphicon-warning-sign"></span>
+                                        Username is empty!!!
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="row container-fluid">
+                                <div class="ip-su col-lg-6">
+                                    <label for="em">
+                                        <h4>Email</h4>
+                                    </label>
+                                    <input type="email" id="em" class="form-control" placeholder="Your Email"
+                                        name="txtNewUserEmail" ng-model="newUser.Email" required />
+                                    <h4 ng-show="frmSU.txtNewUserEmail.$invalid" ng-hide="validate != 3"><span
+                                            style="color: red;" class="glyphicon glyphicon-warning-sign"></span> Email
+                                        is incorrect!!!
+                                    </h4>
+                                </div>
+                                <div class="ip-su col-lg-6">
+                                    <label for="bd">
+                                        <h4>Date of birth</h4>
+                                    </label>
+                                    <input type="date" id="bd" class="form-control" placeholder="Your date of birth"
+                                        name="txtNewUserBirthday" ng-model="newUser.Birthday" required />
+                                    <h4 ng-show="frmSU.txtNewUserBirthday.$invalid" ng-hide="validate != 4"><span
+                                            style="color: red;" class="glyphicon glyphicon-warning-sign"></span> Date of
+                                        birth is empty!!!
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 row container-fluid">
+                                <div class="ip-su col-lg-6">
+                                    <label for="">
+                                        <h4>Gender</h4>
+                                    </label>
+                                    <div class="rdo">
+                                        <div class="">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                id="maleGender" value="true" ng-model="newUser.Gender" />
+                                            <label class="form-check-label" for="maleGender">Male</label>
+                                        </div>
+                                        <div class="">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                id="femaleGender" value="false" ng-model="newUser.Gender" />
+                                            <label class="form-check-label" for="femaleGender">Female</label>
+                                        </div>
+                                        <div class="">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                id="otherGender" value="other" ng-model="newUser.Gender" />
+                                            <label class="form-check-label" for="otherGender">Other</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row container-fluid">
+                                <div class="ip-su col-lg-6">
+                                    <label for="pw">
+                                        <h4>Password</h4>
+                                    </label>
+                                    <input type="password" id="pw" class="form-control" placeholder="Your password"
+                                        name="txtNewUserPassword" ng-model="newUser.Password" required />
+                                    <h4 ng-show="frmSU.txtNewUserPassword.$invalid" ng-hide="validate != 5"><span
+                                            style="color: red;" class="glyphicon glyphicon-warning-sign"></span>
+                                        Password is
+                                        empty!!!
+                                    </h4>
+                                </div>
+                                <div class="ip-su col-lg-6">
+                                    <label for="rpw">
+                                        <h4>Repeat password</h4>
+                                    </label>
+                                    <input type="password" id="rpw" class="form-control"
+                                        placeholder="Repeat your password" name="txtNewUserRePassword"
+                                        ng-model="newUser.RePassword" required />
+                                    <h4 ng-show="frmSU.txtNewUserRePassword.$invalid" ng-hide="validate != 6">
+                                        <span style="color: red;" class="glyphicon glyphicon-warning-sign"></span>
+                                        Password is incorrect!!!
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin-top: 30px;">
+                                <div class="col-lg-8 col-lg-offset-2 text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg" ng-click="signUpNewUser()">Sign
+                                        Up
+                                    </button>
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                    <h5 class="last-form-li">Already have an account?
+                                        <a href="#!login" class="register"><span class="glyphicon
+                                                    glyphicon-share-alt"></span> Login
+                                        </a>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
