@@ -4,7 +4,7 @@ app.controller("subject-ctrl", function ($scope, $http, $rootScope) {
     $scope.subjects = [];
 
 
-    $http.get("js/db/subjects.js").then(function (response) {
+    $http.get("js/db/Subjects.js").then(function (response) {
         $scope.subjects = response.data;
     }, function (response) {
         alert("Lỗi");
