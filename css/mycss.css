@@ -186,6 +186,9 @@ header {
     padding-bottom: 5px;
 }
 
+.row-ic>a:hover {
+    text-decoration: none;
+}
 
 .row-ic>button {
     margin: 5px;
@@ -281,7 +284,7 @@ header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10%;
-    color: black;
+    /* color: black; */
 }
 
 .chk2 {
@@ -291,9 +294,12 @@ header {
     cursor: pointer;
 }
 
+.fp-l {
+    color: black;
+}
+
 .fp-l>label {
     margin-top: 2px;
-    color: black;
     font-size: medium;
     cursor: pointer;
 }

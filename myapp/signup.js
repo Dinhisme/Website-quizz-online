@@ -38,23 +38,22 @@ app.controller("signup-ctrl", function ($scope, $rootScope, $http) {
                             else {
                                 $scope.validate = 0;
                                 if ($scope.newUser.Password == $scope.newUser.RePassword) {
-                                    $rootScope.student.username = $scope.newUser.userName;
-                                    $rootScope.student.password = $scope.newUser.Password;
-                                    $rootScope.student.fullname = $scope.newUser.FullName;
-                                    $rootScope.student.email = $scope.newUser.Email;
-                                    $rootScope.student.gender = $scope.newUser.Gender;
+                                    $rootScope.accountUser.username = $scope.newUser.userName;
+                                    $rootScope.accountUser.password = $scope.newUser.Password;
+                                    $rootScope.accountUser.fullname = $scope.newUser.FullName;
+                                    $rootScope.accountUser.email = $scope.newUser.Email;
+                                    $rootScope.accountUser.gender = $scope.newUser.Gender;
                                     var birthday = document.getElementById('bd').value;
                                     // alert(birthday);
-                                    $rootScope.student.birthday = birthday;
-                                    $rootScope.student.schoolfee = 0;
-                                    $rootScope.student.marks = 0;
-                                    $rootScope.students.push($rootScope.student);
-                                    firebase.database().ref("Students/" + $rootScope.student.username).set($rootScope.student);
+                                    $rootScope.accountUser.birthday = birthday;
+                                    $rootScope.accountUser.marks = 0;
+                                    $rootScope.accounts.push($rootScope.accountUser);
+                                    firebase.database().ref("Accounts/" + $rootScope.accountUser.username).set($rootScope.accountUser);
                                     alert("Đăng kí thành công");
                                     window.location.href = "#!login";
                                     $scope.newUser = [];
-                                    $rootScope.student = [];
-                                    // alert($rootScope.students[3].username);
+                                    $rootScope.accountUser = [];
+                                    // alert($rootScope.accounts[3].username);
                                 } else {
                                     alert("Xác nhận lại mật khẩu không khớp!!!");
                                     $scope.validate = 6;

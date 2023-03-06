@@ -1,56 +1,82 @@
 app.controller("ac-ctrl", function ($scope, $rootScope, $http) {
     $scope.validate = 0;
-    if (localStorage.getItem("student") == null) {
-        $rootScope.student = null;
+    if (localStorage.getItem("account") == null) {
+        $rootScope.accountUser = null;
     } else {
-        $rootScope.student = JSON.parse(localStorage.getItem("student"));
+        $rootScope.accountUser = JSON.parse(localStorage.getItem("account"));
     }
-    $scope.studentFullname = $rootScope.student.fullname;
-    //validate và bắt đầu cập nhật dữ liệu của người dùng đang đang nhập vào trong mảng students
+
+    $scope.change = false;
+    $scope.changePassword = function () {
+        $scope.change = true;
+    }
+
+    $scope.accountUserFullname = $rootScope.accountUser.fullname;
+    //validate và bắt đầu cập nhật dữ liệu của người dùng đang đang nhập vào trong mảng accounts
     $scope.updateAC = function () {
         var count = 0;
-        if ($scope.studentFullname == null) {
+        if ($scope.accountUserFullname == null) {
             $scope.validate = 1;
         } else {
-            if ($scope.StudentOldPassword == null) {
-                $scope.validate = 2;
-            }
-            else {
-                if ($scope.StudentNewPassword == null) {
-                    $scope.validate = 3;
-                } else {
-                    if ($scope.StudentReNewPassword == null) {
-                        $scope.validate = 4;
-                    }
-                    else {
-                        if ($rootScope.student.password == $scope.StudentOldPassword) {
-                            if ($scope.StudentNewPassword == $scope.StudentReNewPassword) {
-                                $rootScope.students.forEach(st => {
-                                    if (st.username == $rootScope.student.username) {
-                                        //cập nhật dữ liệu của user
-                                        $rootScope.students[count].fullname = (angular.copy($scope.studentFullname));
-                                        $rootScope.students[count].gender = (angular.copy($scope.student.gender));
-                                        $rootScope.students[count].password = (angular.copy($scope.StudentNewPassword));
-                                        $rootScope.student.fullname = (angular.copy($scope.studentFullname));
-                                        $rootScope.student.gender = (angular.copy($scope.student.gender));
-                                        $rootScope.student.password = (angular.copy($scope.StudentNewPassword));
-                                        alert("Cập nhật thông tin thành công!");
-                                        localStorage.setItem("student", JSON.stringify($rootScope.student));
-                                        firebase.database().ref("Students/" + $rootScope.student.username).set($rootScope.student);
-                                    }
-                                    count++;
-                                })
-                            } else {
-                                alert("Xác nhận mật khẩu không khớp nhau vui lòng kiểm tra lại!");
-                                $scope.validate = 4;
-                            }
+            //truong hop cap nhat can mat khau
+            if ($scope.change == true) {
+                if ($scope.AccountUserOldPassword == null) {
+                    $scope.validate = 2;
+                }
+                else {
+                    if ($scope.AccountUserNewPassword == null) {
+                        $scope.validate = 3;
+                    } else {
+                        if ($scope.AccountUserReNewPassword == null) {
+                            $scope.validate = 4;
                         }
                         else {
-                            alert("Sai mật khẩu!!");
-                            $scope.validate = 2;
+                            if ($rootScope.accountUser.password == $scope.AccountUserOldPassword) {
+                                if ($scope.AccountUserNewPassword == $scope.AccountUserReNewPassword) {
+                                    $rootScope.accounts.forEach(st => {
+                                        if (st.username == $rootScope.accountUser.username) {
+                                            //cập nhật dữ liệu của user
+                                            $rootScope.accounts[count].fullname = (angular.copy($scope.accountUserFullname));
+                                            $rootScope.accounts[count].gender = (angular.copy($scope.accountUser.gender));
+                                            $rootScope.accounts[count].password = (angular.copy($scope.AccountUserNewPassword));
+                                            $rootScope.accountUser.fullname = (angular.copy($scope.accountUserFullname));
+                                            $rootScope.accountUser.gender = (angular.copy($scope.accountUser.gender));
+                                            $rootScope.accountUser.password = (angular.copy($scope.AccountUserNewPassword));
+                                            alert("Cập nhật thông tin thành công!");
+                                            localStorage.setItem("account", JSON.stringify($rootScope.accountUser));
+                                            firebase.database().ref("Accounts/" + $rootScope.accountUser.username).set($rootScope.accountUser);
+                                            $scope.change = false;
+                                        }
+                                        count++;
+                                    })
+                                } else {
+                                    // alert("Xác nhận mật khẩu không khớp nhau vui lòng kiểm tra lại!");
+                                    $scope.validate = 6;
+                                }
+                            }
+                            else {
+                                // alert("Sai mật khẩu!!");
+                                $scope.validate = 5;
+                            }
                         }
                     }
                 }
+            }
+            //truong hop cap nhat khong can mat khau
+            else {
+                $rootScope.accounts.forEach(st => {
+                    if (st.username == $rootScope.accountUser.username) {
+                        //cập nhật dữ liệu của user
+                        $rootScope.accounts[count].fullname = (angular.copy($scope.accountUserFullname));
+                        $rootScope.accounts[count].gender = (angular.copy($scope.accountUser.gender));
+                        $rootScope.accountUser.fullname = (angular.copy($scope.accountUserFullname));
+                        $rootScope.accountUser.gender = (angular.copy($scope.accountUser.gender));
+                        alert("Cập nhật thông tin thành công!");
+                        localStorage.setItem("account", JSON.stringify($rootScope.accountUser));
+                        firebase.database().ref("Accounts/" + $rootScope.accountUser.username).set($rootScope.accountUser);
+                    }
+                    count++;
+                })
             }
         }
     }

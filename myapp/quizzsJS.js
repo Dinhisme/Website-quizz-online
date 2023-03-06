@@ -134,7 +134,7 @@ app.controller("quizzs-ctrl", function ($scope, $rootScope, $http, $interval) {
         //điểm của người thi sẽ được cộng dồn
         $rootScope.student.marks = parseInt($rootScope.student.marks) + parseInt($scope.point);
         localStorage.setItem("student", JSON.stringify($rootScope.student));
-        firebase.database().ref("Students/" + $rootScope.user + "marks/").set($rootScope.student.marks);
+        firebase.database().ref("Students/" + $rootScope.user + "/marks").set($rootScope.student.marks);
         //biến kiểm tra để hiển thị điểm và thông tin chi tiết
         $scope.checkFinish = true;
     }

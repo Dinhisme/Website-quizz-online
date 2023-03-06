@@ -19,18 +19,34 @@
                                     <h4>Fullname</h4>
                                 </label>
                                 <input type="text" id="fn" class="form-control" placeholder="" name="txtUpdateUserName"
-                                    ng-model="studentFullname" required />
+                                    ng-model="accountUserFullname" required />
                                 <h4 ng-show="frmAC.txtUpdateUserName.$invalid" ng-hide="validate != 1"><span
                                         style="color: red;" class="glyphicon glyphicon-warning-sign"></span> Fullname is
                                     empty!!!
                                 </h4>
                             </div>
                             <div class="ip-su col-lg-6">
+                                <label for="us">
+                                    <h4>Username</h4>
+                                </label>
+                                <input type="text" id="us" placeholder="" class="form-control btn-changePW"
+                                    value="{{accountUser.username}}" readonly />
+                            </div>
+                        </div>
+                        <div class="row container-fluid">
+                            <div class="ip-su col-lg-6">
                                 <label for="em">
                                     <h4>Email</h4>
                                 </label>
                                 <input type="email" id="em" class="form-control btn-changePW" placeholder=""
-                                    value="{{student.email}}" readonly />
+                                    value="{{accountUser.email}}" readonly />
+                            </div>
+                            <div class="ip-su col-lg-6">
+                                <label for="m">
+                                    <h4>Marks</h4>
+                                </label>
+                                <input type="text" id="m" class="form-control btn-changePW" placeholder=""
+                                    value="{{accountUser.marks}}" readonly />
                             </div>
                         </div>
                         <div class="row container-fluid">
@@ -39,11 +55,7 @@
                                     <h4>Date of birth</h4>
                                 </label>
                                 <input type="date" id="bd" class="form-control btn-changePW" placeholder=""
-                                    value="{{student.birthday}}" name="txtUpdateUserBirthday" readonly />
-                                <h4 ng-show="frmAC.txtUpdateUserBirthday.$invalid" ng-hide="validate != 20"><span
-                                        style="color: red;" class="glyphicon glyphicon-warning-sign"></span> Vui lòng
-                                    nhập ngày sinh
-                                </h4>
+                                    value="{{accountUser.birthday}}" name="txtUpdateUserBirthday" readonly />
                             </div>
                             <div class="ip-su col-lg-6">
                                 <label for="">
@@ -51,15 +63,18 @@
                                 </label>
                                 <div class="rdo">
                                     <div class="">
-                                        <input type="radio" value="true" ng-model="student.gender" id="maleGender" />
+                                        <input type="radio" value="true" ng-model="accountUser.gender"
+                                            id="maleGender" />
                                         <label for="maleGender">Male</label>
                                     </div>
                                     <div class="">
-                                        <input type="radio" value="false" ng-model="student.gender" id="femaleGender" />
+                                        <input type="radio" value="false" ng-model="accountUser.gender"
+                                            id="femaleGender" />
                                         <label for="femaleGender">Female</label>
                                     </div>
                                     <div class="">
-                                        <input type="radio" value="other" ng-model="student.gender" id="otherGender" />
+                                        <input type="radio" value="other" ng-model="accountUser.gender"
+                                            id="otherGender" />
                                         <label class="form-check-label" for="otherGender">Other</label>
                                     </div>
                                 </div>
@@ -67,49 +82,34 @@
                         </div>
                         <div class="row container-fluid">
                             <div class="ip-su col-lg-6">
-                                <label for="sf">
-                                    <h4>School fee</h4>
-                                </label>
-                                <input id="sf" class="form-control btn-changePW" placeholder=""
-                                    value="{{student.schoolfee}}" readonly />
-                            </div>
-                            <div class="ip-su col-lg-6">
-                                <label for="m">
-                                    <h4>Marks</h4>
-                                </label>
-                                <input type="text" id="m" class="form-control btn-changePW" placeholder=""
-                                    value="{{student.marks}}" readonly />
-                            </div>
-                        </div>
-                        <div class="row container-fluid">
-                            <div class="ip-su col-lg-6">
-                                <label for="us">
-                                    <h4>Username</h4>
-                                </label>
-                                <input type="text" id="us" placeholder="" class="form-control btn-changePW"
-                                    value="{{student.username}}" readonly />
-                            </div>
-                            <div class="ip-su col-lg-6">
                                 <label for="opw">
                                     <h4>Your password</h4>
                                 </label>
-                                <input type="password" id="opw" class="form-control"
+                                <input ng-show="change == false" type="button"
+                                    class="form-control btn-changePW text-center" placeholder=""
+                                    ng-click="changePassword()" value="Change password" />
+                                <input ng-show="change == true" type="password" id="opw" class="form-control"
                                     placeholder="Please type your password to change new password"
-                                    name="txtUserOldPassword" ng-model="StudentOldPassword" required />
+                                    name="txtUserOldPassword" ng-model="AccountUserOldPassword" required />
                                 <h4 ng-show="frmAC.txtUserOldPassword.$invalid" ng-hide="validate != 2"><span
                                         style="color: red;" class="glyphicon glyphicon-warning-sign"></span> Password is
                                     empty!!!
                                 </h4>
+                                <h4 ng-show="frmAC.txtUserOldPassword.$invalid" ng-hide="validate != 5"><span
+                                        style="color: red;" class="glyphicon glyphicon-warning-sign"></span> Your
+                                    password is
+                                    incorrect!!!
+                                </h4>
                             </div>
                         </div>
-                        <div class="row container-fluid">
+                        <div class="row container-fluid" ng-show="change == true">
                             <div class="ip-su col-lg-6">
                                 <label for="npw">
                                     <h4>New password</h4>
                                 </label>
                                 <input type="password" id="npw" class="form-control"
                                     placeholder="Type your new password" name="txtUpdateUserPassword"
-                                    ng-model="StudentNewPassword" required />
+                                    ng-model="AccountUserNewPassword" required />
                                 <h4 ng-show="frmAC.txtUpdateUserPassword.$invalid" ng-hide="validate != 3">
                                     <span style="color: red;" class="glyphicon glyphicon-warning-sign"></span> New
                                     password is empty!!!
@@ -121,11 +121,15 @@
                                 </label>
                                 <input type="password" id="nrpw" class="form-control"
                                     placeholder="Repeat your new password" name="txtUpdateUserRePassword"
-                                    ng-model="StudentReNewPassword" required />
+                                    ng-model="AccountUserReNewPassword" required />
                                 <h4 ng-show="frmAC.txtUpdateUserRePassword.$invalid" ng-hide="validate != 4">
                                     <span style="color: red;" class="glyphicon glyphicon-warning-sign"></span> Repeat
-                                    new
-                                    password is empty!!!
+                                    new password is empty!!!
+                                </h4>
+
+                                <h4 ng-show="frmAC.txtUserOldPassword.$invalid" ng-hide="validate != 6"><span
+                                        style="color: red;" class="glyphicon glyphicon-warning-sign"></span> Repeat
+                                    new password incorrect!!!
                                 </h4>
                             </div>
                         </div>

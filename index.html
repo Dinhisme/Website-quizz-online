@@ -22,7 +22,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
     <link rel="icon" href="images/Picture2.png">
-</head>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
 
 <body ng-app="myApp">
     <div class="container" id="main">
@@ -59,10 +60,26 @@
                         <ul class="nav navbar-nav navbar-right" ng-show="user == null">
                             <li><a href="#!signup"><span class="glyphicon glyphicon-user"></span> SIGN UP</a></li>
                             <li><a href="#!login"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
+                            <li ng-show="status == 'day'"><a href="" ng-click="night()"><span
+                                        class="fi fi-bs-moon-stars"
+                                        style="background-color: white; border-radius: 50%; padding-top: 10px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;"></span></a>
+                            </li>
+                            <li ng-show="status == 'night'"><a href="" ng-click="day()"><span
+                                        class="fi fi-br-brightness"
+                                        style="background-color: white; border-radius: 50%; padding-top: 10px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;"></span></a>
+                            </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" ng-hide="user == null">
                             <li data-toggle="dropdown"><a href=""><span style="font-size: x-larger;"
                                         class="glyphicon glyphicon-user"></span> {{user}}<span class="caret"></span></a>
+                            </li>
+                            <li ng-show="status == 'day'"><a href="" ng-click="night()"><span
+                                        class="fi fi-bs-moon-stars"
+                                        style="background-color: white; border-radius: 50%; padding-top: 10px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;"></span></a>
+                            </li>
+                            <li ng-show="status == 'night'"><a href="" ng-click="day()"><span
+                                        class="fi fi-br-brightness"
+                                        style="background-color: white; border-radius: 50%; padding-top: 10px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;"></span></a>
                             </li>
                             <ul class="dropdown-menu">
                                 <li><a href="#!account">Account</a></li>
@@ -107,23 +124,32 @@
                 </div>
             </div>
         </div>
-        <footer class="row ft ">
+        <footer id="ft" class="row ft">
             <div class="container-fluid ft-content ">
                 <div class="col-sm-12 text-center ">
                     <a href="#!about">
                         <img style="width: 150px; margin: 15px 0;" src="images/logoDred2.png" alt="">
                     </a>
-                    <div class="row-ic ">
-                        <button type="button " class="btn btn-primary btn-ic "><img src="icon/glyphicon-facebook.png "
-                                alt=" "></button>
-                        <button type="button " class="btn btn-primary btn-ic "><img src="icon/glyphicon-twitter.png "
-                                alt=" "></button>
-                        <button type="button " class="btn btn-primary btn-ic "><img src="icon/glyphicon-instagram.png "
-                                alt=" "></button>
-                        <button type="button " class="btn btn-primary btn-ic "><img src="icon/glyphicon-linkedln.png "
-                                alt=" "></button>
-                        <button type="button " class="btn btn-primary btn-ic "><img src="icon/glyphicon-github.png "
-                                alt=" "></button>
+                    <div class="row-ic">
+                        <a href="https://www.facebook.com/Dinhisme/">
+                            <button type="button" class="btn btn-primary btn-ic"><img src="icon/glyphicon-facebook.png "
+                                    alt=" "></button>
+                        </a>
+                        <!-- <a href="">
+                            <button type="button" class="btn btn-primary btn-ic"><img src="icon/glyphicon-twitter.png "
+                                    alt=" "></button>
+                        </a> -->
+                        <a href="https://www.instagram.com/dinhisme/">
+                            <button type="button" class="btn btn-primary btn-ic"><img
+                                    src="icon/glyphicon-instagram.png " alt=" "></button>
+                        </a>
+                        <a href="https://www.linkedin.com/in/dinhisme/">
+                            <button type="button" class="btn btn-primary btn-ic">
+                                <img src="icon/glyphicon-linkedln.png " alt="">
+                            </button>
+                        </a>
+                        <a href="https://github.com/Dinhisme/"><button type="button" class="btn btn-primary btn-ic"><img
+                                    src="icon/glyphicon-github.png " alt=" "></button></a>
                     </div>
                     <br>
                     <br>

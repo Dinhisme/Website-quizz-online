@@ -1,24 +1,48 @@
 var app = angular.module("myApp", ["ngRoute"]);
 app.run(function ($rootScope, $http) {
+    $rootScope.status = "day";
+    $rootScope.night = function () {
+        $rootScope.status = "night";
+        document.getElementById("main").style.backgroundColor = "rgb(35, 35, 35)";
+        document.getElementById("ft").style.backgroundColor = "rgb(30, 30, 30)";
+        document.getElementById("ft").style.borderTop = "2px solid white";
+        document.getElementById("li").style.border = "2px solid white";
+        document.getElementById("li").style.backgroundColor = "rgb(25, 25, 25)";
+        document.getElementById("li").style.color = "white";
+        document.getElementById("fpw").style.color = "white";
+    }
+
+    $rootScope.day = function () {
+        $rootScope.status = "day";
+        document.getElementById("main").style.backgroundColor = "rgb(190, 210, 228)";
+        document.getElementById("ft").style.backgroundColor = "rgb(158, 198, 233)";
+        document.getElementById("ft").style.borderTop = "2px solid black";
+        document.getElementById("li").style.border = "2px solid black";
+        document.getElementById("li").style.backgroundColor = "rgb(197, 226, 252)";
+        document.getElementById("li").style.color = "black";
+        document.getElementById("fpw").style.color = "black";
+    }
+
+
     //khi chạy trang web sẽ nhận dữ liệu của các học sinh
-    $rootScope.students = [];
+    $rootScope.accounts = [];
 
     //lấy dữ liệu từ sever
-    var dbRef = firebase.database().ref().child("Students");
+    var dbRef = firebase.database().ref().child("Accounts");
     dbRef.on("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
             var key = childSnapshot.key;
             var User = snapshot.child(key).val();
-            $rootScope.students.push(User);
+            $rootScope.accounts.push(User); ount
         });
-        $rootScope.students.forEach(st => {
+        $rootScope.accounts.forEach(st => {
             console.log(st);
         });
     })
 
-    // localStorage.clear("students");
-    if (localStorage.getItem("students") == null) {
-        localStorage.setItem("students", JSON.stringify($rootScope.students));
+    // localStorage.clear("accounts");
+    if (localStorage.getItem("accounts") == null) {
+        localStorage.setItem("accounts", JSON.stringify($rootScope.accounts));
     }
 
     //Đăng xuất
@@ -35,14 +59,13 @@ app.run(function ($rootScope, $http) {
         $rootScope.user = localStorage.getItem("user");
     }
 
-    $rootScope.student = {
+    $rootScope.accountUser = {
         username: "",
         password: "",
         fullname: "",
         email: "",
         gender: "",
         birthday: "",
-        schoolfee: 0,
         marks: 0
     };
 
@@ -66,10 +89,11 @@ app.run(function ($rootScope, $http) {
 
 });
 
+
 app.config(function ($routeProvider) {
     $routeProvider
         .when("/about", {
-            templateUrl: "html/about.html?"
+            templateUrl: "html/about.html?",
         })
         .when("/contact", {
             templateUrl: "html/contact.html?"

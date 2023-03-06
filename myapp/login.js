@@ -5,6 +5,13 @@ app.controller("login-ctrl", function ($scope, $rootScope, $http) {
     $scope.validatetxtUser = true;
     $scope.validatetxtPass = true;
     $rootScope.user = null;
+    $scope.IdRequest = Math.floor(Math.random() * 1000000);
+
+    if ($rootScope.status == "day") {
+        $rootScope.day();
+    } else {
+        $rootScope.night();
+    }
 
     //kiểm tra và validate
     $scope.check = function () {
@@ -18,7 +25,7 @@ app.controller("login-ctrl", function ($scope, $rootScope, $http) {
             else {
                 $scope.validatetxtUser = true;
                 $scope.validatetxtPass = true;
-                $rootScope.students.forEach(st => {
+                $rootScope.accounts.forEach(st => {
                     //kiểm tra tài khoản có tồn tại chưa
                     if (st.username == $scope.Username) {
                         $scope.exist = true;
@@ -26,9 +33,9 @@ app.controller("login-ctrl", function ($scope, $rootScope, $http) {
                     //kiểm tra tài khoản đăng nhập đúng hay không
                     if ((st.username == $scope.Username) && (st.password == $scope.Password)) {
                         $scope.loginSuccess = true;
-                        $rootScope.student = st;
-                        localStorage.clear("student");
-                        localStorage.setItem("student", JSON.stringify(st));
+                        $rootScope.accountUser = st;
+                        localStorage.clear("account");
+                        localStorage.setItem("account", JSON.stringify(st));
                     }
                 });
                 //trường hợp có tồn tại và đăng nhập đúng
@@ -54,7 +61,6 @@ app.controller("login-ctrl", function ($scope, $rootScope, $http) {
 
 
     //** Quên mật khẩu**/
-    $scope.IdRequest = Math.floor(Math.random() * 1000000);
     //kiểm tra email có tồn tại hay kh và tiến hành gửi mail
     $scope.alreadyExist = function () {
         var email = document.getElementById('Email').value;
@@ -63,7 +69,7 @@ app.controller("login-ctrl", function ($scope, $rootScope, $http) {
         if (email == "") {
             return;
         } else {
-            $rootScope.students.forEach(st => {
+            $rootScope.accounts.forEach(st => {
                 //kiểm tra email có tồn tại chưa
                 if (st.email == email) {
                     // alert('email có tồn tại!');
@@ -118,10 +124,10 @@ app.controller("login-ctrl", function ($scope, $rootScope, $http) {
         if (newPassword == "") {
             return;
         } else {
-            $rootScope.students.forEach(st => {
+            $rootScope.accounts.forEach(st => {
                 if (st.email == email) {
                     st.password = newPassword;
-                    firebase.database().ref("Students/" + st.username + "/password").set(newPassword);
+                    firebase.database().ref("Accounts/" + st.username + "/password").set(newPassword);
                     alert("Đã thay đổi mật khẩu thành công!!!");
                     // window.location.href = "#!login";
                 }
